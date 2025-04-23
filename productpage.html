@@ -12,30 +12,42 @@
     <nav class="bg-green-200 p-5 text-2xl flex justify-between items-center shadow-xl sticky top-0 z-10">
         <h1 class="text-3xl">Greenden</h1>
 
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:hidden text-gray-700" fill="none" viewBox="0 0 24 24"
+        <svg id="slidebar" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:hidden text-gray-700 cursor-pointer" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                 d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
 
         <ul class="text-xl flex gap-5  text-gray-600 hidden md:flex">
-            <li><a class="hover:underline hover:text-black" href="index.html">Home</a></li>
-            <li><a class="hover:underline hover:text-black" href="productpage.html">Products</a></li>
-            <li><a class="hover:underline hover:text-black" href="contactpage.html">Contact</a></li>
+            <li><a class="hover:underline hover:text-black" href="./index.html">Home</a></li>
+            <li><a class="hover:underline hover:text-black" href="./productpage.html">Products</a></li>
+            <li><a class="hover:underline hover:text-black" href="./contactpage.html">Contact</a></li>
         </ul>
     </nav>
+
+    <section id="slider" class="bg-green-200 fixed  top-0 right-0 z-10 " style="width: 50%; height: 100vh; right: -50%; transition-duration: 0.5s;">
+        <div class="text-right p-5 ">
+          <p id="closeslide" class="inline cursor-pointer">X</p>
+        </div>
+        <ul class="text-xl flex-col items-center   flex gap-10  text-gray-600">
+            <li><a class="hover:underline hover:text-black" href="./index.html">Home</a></li>
+            <li><a class="hover:underline hover:text-black" href="./productpage.html">Products</a></li>
+            <li><a class="hover:underline hover:text-black" href="./contactpage.html">Contact</a></li>
+        </ul>
+    </section>
+    
 
     <section class="text-center">
 
         <h1 class="text-2xl font-bold mt-10">Our Products</h1><br>
 
-        <input class="border border-black  p-2 mt-3" style="width: 80%;" type="text" placeholder="Search for more">
+        <input id="Search" class="border border-black  p-2 mt-3" style="width: 80%;" type="text" placeholder="Search for more">
 
     </section>
 
     <section class="p-7 text-center ">
         <h3 class="font-bold text-2xl text-center">Best seller</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 mt-10 gap-3">
+        <div id="productcontainer" class="grid grid-cols-2 md:grid-cols-4 mt-10 gap-3">
             <div>
                 <img src="./img/p1.jpg"
                     class="inline hover:shadow-xl transform hover:-translate-y-2" alt="plants">
@@ -93,5 +105,39 @@
             <p>© All rights reserved. Fast & Free Shipping | 100% Satisfaction Guaranteed | Secure Checkout</p>
             <P>@ 2025 Greenday.com</P>
         </footer>
+
+
+        <script>
+            const slidebar = document.getElementById("slidebar");
+            const slider = document.getElementById("slider");
+            const closeslide = document.getElementById("closeslide");
+        
+            slidebar.addEventListener("click", function () {
+                slider.style.right = 0;
+            });
+        
+            closeslide.addEventListener("click", function () {
+                slider.style.right = "-50%";
+            });
+        
+            const productcontainer = document.getElementById("productcontainer");
+            const search = document.getElementById("Search"); 
+            const productlist = productcontainer.querySelectorAll("div");
+        
+            search.addEventListener("keyup", function () {
+                const enteredValue = search.value.toLowerCase();
+        
+                productlist.forEach(product => {
+                    const productName = product.querySelector("h1").textContent.toLowerCase();
+                    
+                    if (productName.includes(enteredValue)) {
+                        product.style.display = "block";
+                    } else {
+                        product.style.display = "none";
+                    }
+                });
+            });
+        </script>
+        
 
   
